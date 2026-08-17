@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet"/>
 </head>
-<body>
+<body onload="initPage()">
 
 <!-- ===== NAVBAR ===== -->
 <nav class="navbar" id="navbar">
@@ -46,19 +46,8 @@
 
 <!-- ===== SHOP STATUS BANNER ===== -->
 <div class="shop-status-bar" id="shopStatusBar">
-  <span id="shopStatusContent">🏪 Loading shop status…</span>
+  🟢 Store is OPEN — Come visit us!
 </div>
-<script>
-(function() {
-  const DEFAULT_SHOP = { address: "Chamra Mandi Hide Market, Akbar Road #18, Lahore", hours: "Mon–Sat: 10:00 AM – 9:00 PM | Sun: 12:00 PM – 6:00 PM", open: true };
-  const shop = JSON.parse(localStorage.getItem("sh18_shop") || JSON.stringify(DEFAULT_SHOP));
-  const content = document.getElementById("shopStatusContent");
-  if (content) {
-    content.textContent = shop.open ? "🟢 Store is OPEN — Come visit us!" : "🔴 Store is currently CLOSED — See you soon!";
-    document.getElementById("shopStatusBar").className = "shop-status-bar " + (shop.open ? "open" : "closed");
-  }
-})();
-</script>
 
 <!-- ===== SHOES SECTION ===== -->
 <section class="section" id="shoes">
@@ -75,8 +64,8 @@
     <div class="location-info">
       <div class="loc-icon">📍</div>
       <h3>Location</h3>
-      <p id="storeAddress" style="font-size: 1.2rem; font-weight: 600; color: var(--gold); margin: 1.5rem 0; line-height: 1.8;">Chamra Mandi Hide Market, Akbar Road #18, Lahore</p>
-      <p class="loc-hours" id="storeHours">Mon–Sat: 10:00 AM – 9:00 PM  |  Sun: 12:00 PM – 6:00 PM</p>
+      <p style="font-size: 1.2rem; font-weight: 600; color: var(--gold); margin: 1.5rem 0; line-height: 1.8;">Chamra Mandi Hide Market, Akbar Road #18, Lahore</p>
+      <p class="loc-hours">Mon–Sat: 10:00 AM – 9:00 PM  |  Sun: 12:00 PM – 6:00 PM</p>
       <p id="storeCountdown" style="font-size: 0.95rem; color: var(--gold); margin: 0.8rem 0; font-weight: 600;"></p>
       <div class="store-status-pill" id="storeStatusPill">
         <span id="storeStatusDot" class="dot"></span>
@@ -110,6 +99,215 @@
 </div>
 
 <script src="data.js"></script>
-<script src="app.js"></script>
+<script>
+// INLINE SHOES DATA - DIRECTLY EMBEDDED
+const SHOES = [
+  {
+    id: 1,
+    name: "Premium Black Leather Slip-On",
+    desc: "Premium black Leather Upper · Elastic sides for easy slip-ons · Durable leather outsole for long-lasting wear · Comfortable insoles for all-day support.",
+    price: 4500,
+    available: true,
+    img: "images/shoe1.jpg"
+  },
+  {
+    id: 2,
+    name: "Classic Comfort Dress Shoe",
+    desc: "Durable leather outsole for long-lasting wear · Comfortable insoles for all-day support · Crafted with precision for the modern gentleman.",
+    price: 5200,
+    available: true,
+    img: "images/shoe2.jpg"
+  },
+  {
+    id: 3,
+    name: "Premium Brown Leather Slip-On",
+    desc: "Premium Brown Leather Upper · Elastic sides for easy slip-ons · Durable leather outsole for long-lasting wear · Comfortable insoles for all-day support.",
+    price: 4800,
+    available: true,
+    img: "images/shoe3.jpg"
+  },
+  {
+    id: 4,
+    name: "Men's Black Leather Horsebit Tassel Loafer 🎱",
+    desc: "Men's black leather horsebit tassel loafers — a statement of elegance and refined taste.",
+    price: 6500,
+    available: true,
+    img: "images/shoe4.jpg"
+  },
+  {
+    id: 5,
+    name: "SPECIAL: Crocodile-Embossed Leather Loafers",
+    desc: "SPECIAL — Crocodile-embossed leather loafers are here. Exotic texture, premium build, limited availability.",
+    price: 8500,
+    available: true,
+    img: "images/shoe5.jpg"
+  }
+];
+
+function initPage() {
+  renderShoes();
+  renderShopStatus();
+  updateStoreCountdown();
+  setInterval(updateStoreCountdown, 60000);
+}
+
+function renderShoes() {
+  const grid = document.getElementById("shoesGrid");
+  if (!grid) return;
+  const discount = getAppliedDiscount();
+  
+  let html = '';
+  SHOES.forEach(s => {
+    const discountedPrice = discount ? Math.floor(s.price * (100 - discount.discount) / 100) : s.price;
+    const savings = s.price - discountedPrice;
+    
+    html += '<div class="shoe-card" onclick="openModal(' + s.id + ')">';
+    html += '<div class="shoe-img-wrap">';
+    html += '<img src="' + s.img + '" alt="' + s.name + '" onerror="this.src=\'images/placeholder.png\'"/>';
+    html += '<span class="availability-tag ' + (s.available ? 'avail' : 'unavail') + '">';
+    html += (s.available ? '✅ Available' : '❌ Out of Stock');
+    html += '</span>';
+    if (discount) {
+      html += '<span class="discount-tag">-' + discount.discount + '%</span>';
+    }
+    html += '</div>';
+    html += '<div class="shoe-info">';
+    html += '<h3>' + s.name + '</h3>';
+    html += '<div style="display:flex;gap:0.5rem;align-items:center">';
+    html += '<p class="shoe-price">Rs. ' + Number(discountedPrice).toLocaleString() + '</p>';
+    if (savings > 0) {
+      html += '<p style="font-size:0.8rem;opacity:0.6;text-decoration:line-through">Rs. ' + Number(s.price).toLocaleString() + '</p>';
+    }
+    html += '</div>';
+    if (savings > 0) {
+      html += '<p style="font-size:0.75rem;color:#27ae60;font-weight:600">Save Rs. ' + Number(savings).toLocaleString() + '</p>';
+    }
+    html += '</div>';
+    html += '</div>';
+  });
+  
+  grid.innerHTML = html;
+}
+
+function getAppliedDiscount() {
+  const s = sessionStorage.getItem("sh18_discount");
+  return s ? JSON.parse(s) : null;
+}
+
+function openModal(id) {
+  const s = SHOES.find(x => x.id === id);
+  if (!s) return;
+  
+  const discount = getAppliedDiscount();
+  const discountedPrice = discount ? Math.floor(s.price * (100 - discount.discount) / 100) : s.price;
+  const savings = s.price - discountedPrice;
+  
+  document.getElementById("modalImg").src = s.img;
+  document.getElementById("modalImg").onerror = function(){ this.src="images/placeholder.png"; };
+  document.getElementById("modalName").textContent = s.name;
+  
+  let priceText = "Rs. " + Number(discountedPrice).toLocaleString();
+  if (savings > 0) {
+    priceText += ` (Save Rs. ${Number(savings).toLocaleString()})`;
+  }
+  document.getElementById("modalPrice").textContent = priceText;
+  
+  if (savings > 0) {
+    document.getElementById("modalPrice").style.color = "#2ecc71";
+  } else {
+    document.getElementById("modalPrice").style.color = "var(--gold)";
+  }
+  
+  document.getElementById("modalStatus").textContent = s.available ? "✅ Available" : "❌ Out of Stock";
+  document.getElementById("modalStatus").className = "modal-status " + (s.available ? "avail" : "unavail");
+  document.getElementById("modalDesc").textContent = s.desc;
+  document.getElementById("shoeModal").classList.add("active");
+}
+
+function closeModal() {
+  document.getElementById("shoeModal").classList.remove("active");
+}
+
+function renderShopStatus() {
+  const bar = document.getElementById("shopStatusBar");
+  const dot = document.getElementById("storeStatusDot");
+  const label = document.getElementById("storeStatusLabel");
+  
+  const shop = loadShop();
+  
+  if (bar) {
+    bar.textContent = shop.open
+      ? "🟢 Store is OPEN — Come visit us!"
+      : "🔴 Store is currently CLOSED — See you soon!";
+    bar.className = "shop-status-bar " + (shop.open ? "open" : "closed");
+  }
+  if (dot) dot.className = "dot " + (shop.open ? "dot-open" : "dot-closed");
+  if (label) label.textContent = shop.open ? "Open Now" : "Closed";
+}
+
+function updateStoreCountdown() {
+  const countdownEl = document.getElementById("storeCountdown");
+  if (!countdownEl) return;
+
+  const now = new Date();
+  const day = now.getDay();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+
+  let closeTime = null;
+  let isClosed = false;
+
+  if (day === 0) {
+    if (hours < 12 || (hours >= 18)) {
+      isClosed = true;
+      closeTime = "Opens tomorrow at 10:00 AM";
+    } else {
+      closeTime = new Date(now);
+      closeTime.setHours(18, 0, 0);
+    }
+  } else if (day >= 1 && day <= 6) {
+    if (hours < 10 || (hours >= 21)) {
+      isClosed = true;
+      closeTime = "Opens tomorrow at 10:00 AM";
+    } else {
+      closeTime = new Date(now);
+      closeTime.setHours(21, 0, 0);
+    }
+  }
+
+  if (isClosed) {
+    countdownEl.textContent = closeTime;
+    countdownEl.style.color = "#e74c3c";
+  } else {
+    const timeDiff = closeTime - now;
+    const hoursLeft = Math.floor(timeDiff / (1000 * 60 * 60));
+    const minsLeft = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+    countdownEl.textContent = `⏰ Closes in ${hoursLeft}h ${minsLeft}m`;
+    countdownEl.style.color = "#f39c12";
+  }
+}
+
+function applyRedeem() {
+  const input = document.getElementById("redeemInput").value.trim().toUpperCase();
+  const badge = document.getElementById("discountBadge");
+  const codes = loadCodes();
+  const match = codes.find(c => c.code === input);
+  if (match) {
+    badge.textContent = "🎉 " + match.label + " applied!";
+    badge.classList.remove("hidden");
+    badge.classList.add("show");
+    sessionStorage.setItem("sh18_discount", JSON.stringify(match));
+    renderShoes();
+  } else {
+    badge.textContent = "❌ Invalid code";
+    badge.classList.remove("hidden");
+    badge.classList.add("show");
+    badge.style.background = "#c0392b";
+    setTimeout(() => { badge.classList.add("hidden"); badge.style.background = ""; }, 3000);
+  }
+}
+
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+</script>
 </body>
 </html>
