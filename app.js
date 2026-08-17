@@ -90,7 +90,7 @@ function renderShoes() {
         ${savings > 0 ? `<p style="font-size:0.75rem;color:#27ae60;font-weight:600">Save Rs. ${Number(savings).toLocaleString()}</p>` : ''}
       </div>
     </div>
-  `}.join("");
+  `}.join(""));
 }
 
 // Get applied discount code
@@ -139,13 +139,20 @@ document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal()
 function renderShopStatus() {
   const shop = loadShop();
   const bar = document.getElementById("shopStatusBar");
+  const content = document.getElementById("shopStatusContent");
   const dot = document.getElementById("storeStatusDot");
   const label = document.getElementById("storeStatusLabel");
 
   if (bar) {
-    bar.textContent = shop.open
+    const statusText = shop.open
       ? "🟢 Store is OPEN — Come visit us!"
       : "🔴 Store is currently CLOSED — See you soon!";
+    
+    if (content) {
+      content.textContent = statusText;
+    } else {
+      bar.textContent = statusText;
+    }
     bar.className = "shop-status-bar " + (shop.open ? "open" : "closed");
   }
   if (dot) dot.className = "dot " + (shop.open ? "dot-open" : "dot-closed");
