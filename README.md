@@ -31,8 +31,8 @@ Premium handcrafted leather footwear e-commerce website with admin dashboard.
 **URL:** `http://localhost/.../admin.html`
 
 **Default Credentials:**
-- **Username:** `admin`
-- **Password:** `style18admin`
+- **Username:** `#####`
+- **Password:** `############`
 
 ### Admin Features
 
