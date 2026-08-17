@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <defs>
+    <radialGradient id="bg3" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#2a1f10" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#050505" stop-opacity="1"/>
+    </radialGradient>
+    <radialGradient id="glow3" cx="50%" cy="60%" r="60%">
+      <stop offset="0%" stop-color="#c9a84c" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="400" height="300" fill="url(#bg3)"/>
+  <rect width="400" height="300" fill="url(#glow3)"/>
+  <!-- Border -->
+  <rect x="6" y="6" width="388" height="288" fill="none" stroke="#c9a84c" stroke-opacity="0.25" stroke-width="1.5" rx="8"/>
+  <!-- Shoe Silhouette - Upper -->
+  <path d="M55 195 C55 165 95 138 160 138 C215 138 235 118 282 112 C332 107 352 128 348 155 C344 177 308 185 298 192 L318 200 C330 205 340 212 334 220 C328 228 298 227 282 224 L88 224 C62 224 52 213 55 195 Z"
+    fill="#c4a46e" stroke="#c9a84c" stroke-opacity="0.4" stroke-width="1.5"/>
+  <!-- Sole -->
+  <path d="M68 210 C68 220 82 228 100 228 L282 228 C300 228 318 225 320 218 C322 211 310 205 298 202 L298 210 Z"
+    fill="#6b4c20" stroke="#c9a84c" stroke-opacity="0.3" stroke-width="1"/>
+  <!-- Highlight / shine -->
+  <ellipse cx="195" cy="148" rx="85" ry="12" fill="#ffffff" opacity="0.06" transform="rotate(-8 195 148)"/>
+  <!-- Logo bar -->
+  <rect x="0" y="255" width="400" height="45" fill="#000000" fill-opacity="0.5"/>
+  <text x="200" y="276" text-anchor="middle" font-family="Georgia,serif" font-size="13" font-weight="bold" fill="#c9a84c">Style 18 Hide</text>
+  <text x="200" y="292" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" fill="#888">Le Jao ®</text>
+  <!-- Shoe name top -->
+  <text x="200" y="38" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="600" fill="#ffffff" opacity="0.85">Premium Brown</text>
+  <text x="200" y="56" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" fill="#c9a84c" opacity="0.75">Leather Slip-On</text>
+</svg>
