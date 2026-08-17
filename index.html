@@ -46,8 +46,19 @@
 
 <!-- ===== SHOP STATUS BANNER ===== -->
 <div class="shop-status-bar" id="shopStatusBar">
-  🏪 Loading shop status…
+  <span id="shopStatusContent">🏪 Loading shop status…</span>
 </div>
+<script>
+(function() {
+  const DEFAULT_SHOP = { address: "Chamra Mandi Hide Market, Akbar Road #18, Lahore", hours: "Mon–Sat: 10:00 AM – 9:00 PM | Sun: 12:00 PM – 6:00 PM", open: true };
+  const shop = JSON.parse(localStorage.getItem("sh18_shop") || JSON.stringify(DEFAULT_SHOP));
+  const content = document.getElementById("shopStatusContent");
+  if (content) {
+    content.textContent = shop.open ? "🟢 Store is OPEN — Come visit us!" : "🔴 Store is currently CLOSED — See you soon!";
+    document.getElementById("shopStatusBar").className = "shop-status-bar " + (shop.open ? "open" : "closed");
+  }
+})();
+</script>
 
 <!-- ===== SHOES SECTION ===== -->
 <section class="section" id="shoes">
