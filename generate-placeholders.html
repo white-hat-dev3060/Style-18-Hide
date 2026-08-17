@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head><title>Generate Placeholders</title></head>
+<body>
+<p>Generating placeholder shoe images…</p>
+<canvas id="c" width="400" height="300" style="display:none"></canvas>
+<script>
+const shoes = [
+  { id:1, label:"Premium Black Leather\nSlip-On", bg:"#1a1a1a", accent:"#888" },
+  { id:2, label:"Classic Comfort\nDress Shoe", bg:"#1c1810", accent:"#8b7355" },
+  { id:3, label:"Premium Brown Leather\nSlip-On", bg:"#2a1f10", accent:"#c4a46e" },
+  { id:4, label:"Black Leather Horsebit\nTassel Loafer 🎱", bg:"#0d0d0d", accent:"#555" },
+  { id:5, label:"SPECIAL: Crocodile\nEmbossed Loafers", bg:"#0f1a0f", accent:"#4a7a4a" }
+];
+
+const c = document.getElementById("c");
+const ctx = c.getContext("2d");
+
+shoes.forEach(s => {
+  ctx.clearRect(0,0,400,300);
+  // bg
+  ctx.fillStyle = s.bg;
+  ctx.fillRect(0,0,400,300);
+  // border
+  ctx.strokeStyle = "#c9a84c44";
+  ctx.lineWidth = 2;
+  ctx.strokeRect(8,8,384,284);
+  // shoe silhouette
+  ctx.fillStyle = s.accent;
+  ctx.beginPath();
+  // simple shoe outline
+  ctx.moveTo(60, 200);
+  ctx.bezierCurveTo(60,170, 100,140, 160,140);
+  ctx.bezierCurveTo(210,140, 230,120, 280,115);
+  ctx.bezierCurveTo(330,110, 350,130, 345,155);
+  ctx.bezierCurveTo(340,175, 310,185, 300,190);
+  ctx.lineTo(320,200);
+  ctx.bezierCurveTo(330,205, 340,210, 335,218);
+  ctx.bezierCurveTo(330,226, 300,225, 285,222);
+  ctx.lineTo(90,222);
+  ctx.bezierCurveTo(65,222, 55,215, 60,200);
+  ctx.fill();
+  ctx.strokeStyle = "#c9a84c66";
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+  // gold shine
+  ctx.fillStyle = "#c9a84c22";
+  ctx.beginPath();
+  ctx.ellipse(200,155,90,15,-.15,0,Math.PI*2);
+  ctx.fill();
+  // logo text
+  ctx.fillStyle = "#c9a84c";
+  ctx.font = "bold 14px serif";
+  ctx.textAlign = "center";
+  ctx.fillText("Style 18 Hide", 200, 260);
+  ctx.fillStyle = "#ffffff88";
+  ctx.font = "12px sans-serif";
+  const lines = s.label.split("\n");
+  lines.forEach((l,i)=>{ ctx.fillText(l, 200, 45+i*18); });
+
+  const link = document.createElement("a");
+  link.download = "shoe"+s.id+".jpg";
+  link.href = c.toDataURL("image/jpeg",.92);
+  link.textContent = "Download shoe"+s.id+".jpg";
+  link.style.display="block";
+  link.style.margin="6px";
+  link.style.color="#c9a84c";
+  document.body.appendChild(link);
+  link.click();
+});
+document.body.insertAdjacentHTML("beforeend","<p style='color:green'>✅ Done! Save files to images/ folder. You can close this tab.</p>");
+</script>
+</body>
+</html>

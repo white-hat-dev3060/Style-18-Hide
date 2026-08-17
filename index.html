@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Style 18 Hide – Le Jao</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo">
+    <img src="logo.png" alt="Style 18 Hide" class="logo-img" onerror="this.src='logo.svg'"/>
+  </a>
+  <div class="nav-links">
+    <a href="index.html" class="active">Home</a>
+    <a href="#shoes">Collection</a>
+    <a href="#location">Location</a>
+  </div>
+  <div class="nav-actions">
+    <div class="redeem-wrap">
+      <input type="text" id="redeemInput" placeholder="Redeem Code" class="redeem-input"/>
+      <button onclick="applyRedeem()" class="btn-redeem">Apply</button>
+    </div>
+    <span id="discountBadge" class="discount-badge hidden"></span>
+    <a href="login.html" class="btn-outline">Log In</a>
+    <a href="signup.html" class="btn-primary">Sign Up</a>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<header class="hero">
+  <div class="hero-content">
+    <img src="logo.png" alt="Style 18 Hide" class="hero-logo" onerror="this.src='logo.svg'"/>
+    <h1>Step Into <span>Style</span></h1>
+    <p>Premium handcrafted leather footwear — crafted for comfort, built to last.</p>
+    <div class="hero-btns">
+      <a href="#shoes" class="btn-primary">Shop Now</a>
+      <a href="signup.html" class="btn-outline">Create Account</a>
+    </div>
+  </div>
+  <div class="hero-overlay"></div>
+</header>
+
+<!-- ===== SHOP STATUS BANNER ===== -->
+<div class="shop-status-bar" id="shopStatusBar">
+  🏪 Loading shop status…
+</div>
+
+<!-- ===== SHOES SECTION ===== -->
+<section class="section" id="shoes">
+  <h2 class="section-title">Our Collection</h2>
+  <p class="section-sub">Handpicked premium leather shoes for the discerning gentleman</p>
+  <div class="shoes-grid" id="shoesGrid">
+    <!-- Populated by JS -->
+  </div>
+</section>
+
+<!-- ===== LOCATION SECTION ===== -->
+<section class="section location-section" id="location">
+  <div class="location-card">
+    <div class="location-info">
+      <div class="loc-icon">📍</div>
+      <h3>Location</h3>
+      <p id="storeAddress" style="font-size: 1.2rem; font-weight: 600; color: var(--gold); margin: 1.5rem 0; line-height: 1.8;">Chamra Mandi Hide Market, Akbar Road #18, Lahore</p>
+      <p class="loc-hours" id="storeHours">Mon–Sat: 10:00 AM – 9:00 PM  |  Sun: 12:00 PM – 6:00 PM</p>
+      <p id="storeCountdown" style="font-size: 0.95rem; color: var(--gold); margin: 0.8rem 0; font-weight: 600;"></p>
+      <div class="store-status-pill" id="storeStatusPill">
+        <span id="storeStatusDot" class="dot"></span>
+        <span id="storeStatusLabel">Checking…</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer-content">
+    <img src="logo.png" alt="Style 18 Hide" style="height:50px;opacity:.85;" onerror="this.src='logo.svg'"/>
+    <p>© 2026 Style 18 Hide. All Rights Reserved.</p>
+    <p style="font-size:.8rem;opacity:.5;">Le Jao ®</p>
+  </div>
+</footer>
+
+<!-- ===== SHOE MODAL ===== -->
+<div class="modal-overlay" id="shoeModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <img id="modalImg" src="" alt=""/>
+    <div class="modal-info">
+      <h3 id="modalName"></h3>
+      <p class="modal-price" id="modalPrice"></p>
+      <p class="modal-status" id="modalStatus"></p>
+      <p id="modalDesc" style="font-size:.9rem;opacity:.7;margin-top:8px;"></p>
+    </div>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

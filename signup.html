@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Sign Up — Style 18 Hide</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet"/>
+</head>
+<body class="auth-page">
+
+<div class="auth-container">
+  <a href="index.html" class="auth-logo">
+    <img src="logo.png" alt="Style 18 Hide" onerror="this.src='logo.svg'"/>
+  </a>
+  <h2>Create Account</h2>
+  <p class="auth-sub">Join Style 18 Hide — Le Jao</p>
+
+  <form id="signupForm" class="auth-form" onsubmit="doSignup(event)">
+    <div class="form-group">
+      <label>Full Name</label>
+      <input type="text" id="sName" placeholder="Your full name" required/>
+    </div>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" id="sEmail" placeholder="you@example.com" required/>
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="sPass" placeholder="Min 6 characters" required minlength="6"/>
+    </div>
+    <div class="form-group">
+      <label>Confirm Password</label>
+      <input type="password" id="sPass2" placeholder="Repeat password" required/>
+    </div>
+    <div id="signupError" class="form-error hidden"></div>
+    <button type="submit" class="btn-primary full-width">Create Account</button>
+  </form>
+
+  <p class="auth-switch">Already have an account? <a href="login.html">Log In</a></p>
+</div>
+
+<script src="data.js"></script>
+<script>
+function doSignup(e) {
+  e.preventDefault();
+  const name  = document.getElementById("sName").value.trim();
+  const email = document.getElementById("sEmail").value.trim().toLowerCase();
+  const pass  = document.getElementById("sPass").value;
+  const pass2 = document.getElementById("sPass2").value;
+  const err   = document.getElementById("signupError");
+
+  if (pass !== pass2) { showErr("Passwords do not match."); return; }
+
+  const users = loadUsers();
+  if (users.find(u => u.email === email)) { showErr("This email is already registered."); return; }
+
+  const newUser = { id: Date.now(), name, email, password: pass, banned: false, joined: new Date().toLocaleDateString() };
+  users.push(newUser);
+  saveUsers(users);
+  setSession({ id: newUser.id, name, email });
+  window.location.href = "index.html";
+
+  function showErr(msg) {
+    err.textContent = msg;
+    err.classList.remove("hidden");
+  }
+}
+</script>
+</body>
+</html>

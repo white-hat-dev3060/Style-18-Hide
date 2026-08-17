@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 90" width="320" height="90">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#1a1200"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </radialGradient>
+  </defs>
+  <rect width="320" height="90" fill="url(#bg)" rx="8"/>
+  <!-- Gold circle -->
+  <circle cx="160" cy="42" r="32" fill="none" stroke="#c9a84c" stroke-width="2.5" opacity="0.9"/>
+  <!-- Shoe silhouette inside circle -->
+  <path d="M140 52 C140 44 148 36 158 36 C165 36 168 32 175 31 C182 30 186 35 185 41 C184 46 178 48 176 50 L180 52 C183 53 185 56 183 58 C181 60 176 59 173 58 L143 58 C138 58 137 55 140 52Z"
+    fill="#e8c97a" opacity="0.9" stroke="#c9a84c" stroke-width="0.8"/>
+  <!-- "Style" text left -->
+  <text x="18" y="52" font-family="Georgia,serif" font-size="26" font-weight="700" font-style="italic" fill="#ffffff" opacity="0.95">Style</text>
+  <!-- "18" in center (over circle) -->
+  <text x="148" y="38" font-family="Georgia,serif" font-size="22" font-weight="700" fill="#c9a84c">18</text>
+  <!-- "HIDE" text right -->
+  <text x="198" y="52" font-family="Georgia,serif" font-size="22" font-weight="700" fill="#ffffff" opacity="0.95">HIDE</text>
+  <!-- ® -->
+  <text x="295" y="38" font-family="Arial" font-size="11" fill="#c9a84c" opacity="0.8">®</text>
+  <!-- "LE JAO" tagline -->
+  <text x="200" y="72" font-family="Arial,sans-serif" font-size="13" font-weight="600" fill="#ffffff" letter-spacing="3" opacity="0.75">LE JAO</text>
+</svg>

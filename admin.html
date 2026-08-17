@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Admin — Style 18 Hide</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet"/>
+</head>
+<body class="admin-body">
+
+<!-- ===== ADMIN LOGIN GATE ===== -->
+<div id="adminGate" class="auth-page" style="display:flex">
+  <div class="auth-container">
+    <a href="index.html" class="auth-logo"><img src="logo.png" alt="Style 18 Hide" onerror="this.src='logo.svg'"/></a>
+    <h2>Admin Panel</h2>
+    <p class="auth-sub">Enter administrator credentials</p>
+    <form class="auth-form" onsubmit="adminLogin(event)">
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="aUser" placeholder="admin" required/>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="aPass" placeholder="password" required/>
+      </div>
+      <div id="adminLoginErr" class="form-error hidden"></div>
+      <button type="submit" class="btn-primary full-width">Access Admin Panel</button>
+    </form>
+  </div>
+</div>
+
+<!-- ===== ADMIN DASHBOARD ===== -->
+<div id="adminDash" style="display:none">
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar">
+    <div class="sidebar-logo">
+      <img src="logo.png" alt="Style 18 Hide" style="height:45px" onerror="this.src='logo.svg'"/>
+      <span>Admin</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#" class="sidebar-link active" data-tab="overview"   onclick="switchTab('overview',this)">📊 Overview</a>
+      <a href="#" class="sidebar-link"         data-tab="shoes"     onclick="switchTab('shoes',this)">👟 Shoes</a>
+      <a href="#" class="sidebar-link"         data-tab="users"     onclick="switchTab('users',this)">👥 Users</a>
+      <a href="#" class="sidebar-link"         data-tab="shop"      onclick="switchTab('shop',this)">🏪 Shop Settings</a>
+      <a href="#" class="sidebar-link"         data-tab="codes"     onclick="switchTab('codes',this)">🎟️ Redeem Codes</a>
+    </nav>
+    <button class="sidebar-logout" onclick="adminLogout()">⬅ Back to Site</button>
+  </aside>
+
+  <!-- Main content -->
+  <main class="admin-main">
+
+    <!-- ── OVERVIEW ── -->
+    <section class="admin-tab active" id="tab-overview">
+      <h2 class="admin-heading">Dashboard Overview</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-num" id="statUsers">0</span>
+          <span class="stat-label">Registered Users</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" id="statShoes">0</span>
+          <span class="stat-label">Shoes Listed</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" id="statAvail">0</span>
+          <span class="stat-label">Available</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" id="statBanned">0</span>
+          <span class="stat-label">Banned Accounts</span>
+        </div>
+      </div>
+      <div class="admin-section-card" style="margin-top:2rem">
+        <h3>Store Status</h3>
+        <div style="display:flex;align-items:center;gap:1rem;margin-top:.8rem">
+          <span id="overviewStoreStatus" style="font-size:1.1rem"></span>
+          <button class="btn-sm" onclick="switchTab('shop', document.querySelector('[data-tab=shop]'))">Edit</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SHOES ── -->
+    <section class="admin-tab" id="tab-shoes">
+      <h2 class="admin-heading">Manage Shoes</h2>
+
+      <!-- Add Shoe Form -->
+      <div class="admin-section-card">
+        <h3>➕ Add New Shoe</h3>
+        <div class="add-shoe-form">
+          <div class="form-group"><label>Shoe Name</label><input type="text" id="newShoeName" placeholder="e.g. Premium Black Slip-On"/></div>
+          <div class="form-group"><label>Description</label><textarea id="newShoeDesc" placeholder="Features, materials…" rows="3"></textarea></div>
+          <div class="form-group"><label>Price (Rs.)</label><input type="number" id="newShoePrice" placeholder="4500" min="0"/></div>
+          <div class="form-group">
+            <label>Image (Drag & Drop or Select)</label>
+            <div id="dropZone" class="drop-zone">
+              <p>📁 Drag image here or click to select</p>
+              <input type="file" id="newShoeImgFile" accept="image/*" style="display:none"/>
+            </div>
+            <input type="text" id="newShoeImg" placeholder="Or paste image URL" style="margin-top:.5rem"/>
+            <small id="imgPreviewText" style="color: var(--muted); margin-top:.3rem; display:block"></small>
+          </div>
+          <div class="form-group" style="align-self:flex-end">
+            <button class="btn-primary" onclick="addShoe()">Add Shoe</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shoes Table -->
+      <div class="admin-section-card" style="margin-top:1.5rem">
+        <h3>📋 All Shoes</h3>
+        <div class="table-wrap">
+          <table class="admin-table" id="shoesTable">
+            <thead>
+              <tr><th>IMG</th><th>Name</th><th>Price</th><th>Status</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="shoesTbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── USERS ── -->
+    <section class="admin-tab" id="tab-users">
+      <h2 class="admin-heading">Manage Users</h2>
+      <div class="admin-section-card">
+        <h3>👥 Registered Accounts</h3>
+        <div class="table-wrap">
+          <table class="admin-table" id="usersTable">
+            <thead>
+              <tr><th>#</th><th>Name</th><th>Email</th><th>Joined</th><th>Status</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="usersTbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SHOP SETTINGS ── -->
+    <section class="admin-tab" id="tab-shop">
+      <h2 class="admin-heading">Shop Settings</h2>
+      <div class="admin-section-card">
+        <div class="form-group"><label>Store Address</label><input type="text" id="shopAddr" placeholder="Street, City, Country"/></div>
+        <div class="form-group"><label>Opening Hours</label><input type="text" id="shopHours" placeholder="Mon–Sat: 10am–9pm"/></div>
+        <div class="form-group">
+          <label>Store Status</label>
+          <select id="shopStatus">
+            <option value="open">🟢 Open</option>
+            <option value="closed">🔴 Closed</option>
+          </select>
+        </div>
+        <button class="btn-primary" onclick="saveShopSettings()">Save Settings</button>
+        <div id="shopSaveMsg" class="form-success hidden">✅ Saved!</div>
+      </div>
+    </section>
+
+    <!-- ── REDEEM CODES ── -->
+    <section class="admin-tab" id="tab-codes">
+      <h2 class="admin-heading">Redeem Codes</h2>
+      <div class="admin-section-card">
+        <h3>➕ Issue New Code</h3>
+        <div class="add-shoe-form">
+          <div class="form-group"><label>Code</label><input type="text" id="newCode" placeholder="STYLE20" style="text-transform:uppercase"/></div>
+          <div class="form-group"><label>Discount %</label><input type="number" id="newDiscount" placeholder="20" min="1" max="100"/></div>
+          <div class="form-group"><label>Label</label><input type="text" id="newCodeLabel" placeholder="20% Off Summer Sale"/></div>
+          <div class="form-group" style="align-self:flex-end">
+            <button class="btn-primary" onclick="addCode()">Issue Code</button>
+          </div>
+        </div>
+      </div>
+      <div class="admin-section-card" style="margin-top:1.5rem">
+        <h3>📋 Active Codes</h3>
+        <div class="table-wrap">
+          <table class="admin-table">
+            <thead><tr><th>Code</th><th>Discount</th><th>Label</th><th>Action</th></tr></thead>
+            <tbody id="codesTbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- Message Modal -->
+<div class="modal-overlay" id="msgModal">
+  <div class="modal-box" style="max-width:420px">
+    <button class="modal-close" onclick="document.getElementById('msgModal').classList.remove('active')">✕</button>
+    <h3>📨 Send Message</h3>
+    <p id="msgToLabel" style="opacity:.6;margin:.5rem 0"></p>
+    <div class="form-group" style="margin-top:1rem">
+      <label>Message</label>
+      <textarea id="msgBody" rows="4" placeholder="Type your message to the user…" style="width:100%;background:#1e1e1e;color:#fff;border:1px solid #333;border-radius:8px;padding:.8rem;resize:vertical"></textarea>
+    </div>
+    <button class="btn-primary" style="margin-top:.8rem" onclick="sendMsg()">Send</button>
+    <div id="msgSent" class="form-success hidden" style="margin-top:.5rem">✅ Message sent!</div>
+  </div>
+</div>
+
+<!-- Edit Shoe Modal -->
+<div class="modal-overlay" id="editShoeModal">
+  <div class="modal-box" style="max-width:480px">
+    <button class="modal-close" onclick="document.getElementById('editShoeModal').classList.remove('active')">✕</button>
+    <h3>✏️ Edit Shoe</h3>
+    <input type="hidden" id="editShoeId"/>
+    <div class="form-group"><label>Name</label><input type="text" id="editShoeName"/></div>
+    <div class="form-group"><label>Description</label><textarea id="editShoeDesc" rows="3" style="width:100%;background:#1e1e1e;color:#fff;border:1px solid #333;border-radius:8px;padding:.8rem;resize:vertical"></textarea></div>
+    <div class="form-group"><label>Price (Rs.)</label><input type="number" id="editShoePrice" min="0"/></div>
+    <div class="form-group">
+      <label>Image (Drag & Drop or Select)</label>
+      <div id="editDropZone" class="drop-zone">
+        <p>📁 Drag image here or click to select</p>
+        <input type="file" id="editShoeImgFile" accept="image/*" style="display:none"/>
+      </div>
+      <input type="text" id="editShoeImg" placeholder="Or paste image URL" style="margin-top:.5rem;width:100%;background:#1e1e1e;color:#fff;border:1px solid #333;border-radius:8px;padding:.8rem"/>
+      <small id="editImgPreviewText" style="color: var(--muted); margin-top:.3rem; display:block"></small>
+    </div>
+    <div class="form-group">
+      <label>Availability</label>
+      <select id="editShoeAvail"><option value="true">✅ Available</option><option value="false">❌ Out of Stock</option></select>
+    </div>
+    <button class="btn-primary" style="margin-top:.8rem" onclick="saveEditShoe()">Save Changes</button>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

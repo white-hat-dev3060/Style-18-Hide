@@ -1,0 +1,187 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║                                                                           ║
+║              👟  STYLE 18 HIDE — LE JAO  👟                              ║
+║                   E-Commerce Website for Premium Footwear                ║
+║                                                                           ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+🚀 QUICK START (30 seconds)
+─────────────────────────────────────────────────────────────────────────────
+
+1. OPEN WEBSITE
+   → Double-click: index.html
+   → Or: Right-click → Open with → Your Browser
+   
+   ✅ Site is now live in your browser!
+
+2. TEST IT
+   → Sign up as a new user (or use test account)
+   → Browse 5 pre-loaded premium shoes
+   → Try redeem code: STYLE10
+   
+3. ADMIN PANEL
+   → Open: admin.html
+   → Username: admin
+   → Password: style18admin
+   → Click: Access Admin Panel
+   
+   ✅ You're now managing the store!
+
+─────────────────────────────────────────────────────────────────────────────
+
+📁 KEY FILES
+─────────────────────────────────────────────────────────────────────────────
+
+index.html          ← HOME PAGE (start here)
+admin.html          ← ADMIN DASHBOARD
+signup.html         ← SIGN UP PAGE
+login.html          ← LOGIN PAGE
+style.css           ← ALL STYLING
+app.js              ← HOME PAGE LOGIC
+admin.js            ← ADMIN LOGIC
+data.js             ← SHARED DATA & STORAGE
+
+─────────────────────────────────────────────────────────────────────────────
+
+👤 DEMO CREDENTIALS
+─────────────────────────────────────────────────────────────────────────────
+
+Admin Login:
+  Username: admin
+  Password: style18admin
+
+Redeem Codes to Try:
+  STYLE10     → 10% Off
+  HIDE20      → 20% Off
+  LAUNCH50    → 50% Off
+  VIP15       → 15% Off
+
+─────────────────────────────────────────────────────────────────────────────
+
+📚 DOCUMENTATION
+─────────────────────────────────────────────────────────────────────────────
+
+QUICKSTART.md       ← 2-minute launch guide
+README.md           ← Complete feature documentation
+TESTING.md          ← Test scenarios & checklist
+PROJECT-SUMMARY.md  ← Technical overview
+START.txt           ← This file
+
+─────────────────────────────────────────────────────────────────────────────
+
+✨ FEATURES INCLUDED
+─────────────────────────────────────────────────────────────────────────────
+
+👤 Users:
+   ✅ Sign up & login
+   ✅ Browse 5 premium shoes
+   ✅ View shoe details in modal
+   ✅ Apply discount codes
+   ✅ Receive admin messages
+   ✅ View store location & hours
+   ✅ Responsive mobile design
+
+🔐 Admin:
+   ✅ Password-protected dashboard
+   ✅ Add/edit/delete shoes
+   ✅ Manage user accounts
+   ✅ Ban/unban users
+   ✅ Send messages to users
+   ✅ Issue redeem codes
+   ✅ Control store status (open/closed)
+   ✅ Update store info
+
+─────────────────────────────────────────────────────────────────────────────
+
+🔧 HOW IT WORKS
+─────────────────────────────────────────────────────────────────────────────
+
+• No server needed — runs entirely in your browser
+• Data stored locally — survives page refresh
+• Mobile friendly — works on phones, tablets, desktop
+• Dark theme with gold accents — premium look
+• Fast loading — no external dependencies except fonts
+
+─────────────────────────────────────────────────────────────────────────────
+
+⚙️ SYSTEM REQUIREMENTS
+─────────────────────────────────────────────────────────────────────────────
+
+Browser:    Chrome, Firefox, Safari, Edge (any recent version)
+Screen:     Works on 320px width and up (mobile responsive)
+Storage:    10MB browser localStorage (more than enough)
+Connection: None required (offline capable)
+
+─────────────────────────────────────────────────────────────────────────────
+
+🎯 NEXT STEPS
+─────────────────────────────────────────────────────────────────────────────
+
+1. Open index.html in your browser
+2. Sign up as a test user
+3. Browse shoes & test features
+4. Open admin.html for admin panel
+5. Add a new shoe or issue a redeem code
+6. Read README.md for complete documentation
+7. Check TESTING.md for test scenarios
+
+─────────────────────────────────────────────────────────────────────────────
+
+💡 TIPS & TRICKS
+─────────────────────────────────────────────────────────────────────────────
+
+✓ Test on mobile: Resize browser window to 375px width
+✓ Clear data: DevTools → Application → localStorage → Delete all sh18_* keys
+✓ Add your logo: Place logo.png in project root (falls back to SVG)
+✓ Try codes: Enter STYLE10, HIDE20, LAUNCH50, or VIP15
+✓ Ban user: Admin → Users → Click "Ban" to toggle
+✓ Message user: Admin → Users → Click "Message" button
+✓ Close store: Admin → Shop Settings → Select "Closed" → Save
+
+─────────────────────────────────────────────────────────────────────────────
+
+❓ TROUBLESHOOTING
+─────────────────────────────────────────────────────────────────────────────
+
+Logo not showing?
+  → Check logo.png exists in project root
+  → Falls back to SVG logo.svg (included)
+
+Shoe images blank?
+  → Click shoe to open modal (shows placeholder if path wrong)
+  → Admin can edit image path for any shoe
+
+Admin can't login?
+  → Username: admin
+  → Password: style18admin
+  → (Exactly as shown above)
+
+Data not persisting?
+  → Check if browser storage is enabled
+  → Don't have private/incognito mode (use normal window)
+  → Check DevTools: F12 → Application → localStorage
+
+Messages not showing?
+  → Logout then login as the target user
+  → Check navbar for 📬 badge (number of unread messages)
+
+─────────────────────────────────────────────────────────────────────────────
+
+🎉 YOU'RE ALL SET!
+─────────────────────────────────────────────────────────────────────────────
+
+Your Style 18 Hide store is ready to launch.
+
+Open index.html now and explore! 🚀
+
+Questions? Read the documentation files in the project folder.
+
+─────────────────────────────────────────────────────────────────────────────
+
+Built with ❤️ for Style 18 Hide — Le Jao ®
+Premium handcrafted leather footwear
+
+Last Updated: August 17, 2026
+Status: ✅ Complete & Ready to Deploy
+
+─────────────────────────────────────────────────────────────────────────────

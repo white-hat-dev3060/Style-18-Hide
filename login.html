@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Log In — Style 18 Hide</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet"/>
+</head>
+<body class="auth-page">
+
+<div class="auth-container">
+  <a href="index.html" class="auth-logo">
+    <img src="logo.png" alt="Style 18 Hide" onerror="this.src='logo.svg'"/>
+  </a>
+  <h2>Welcome Back</h2>
+  <p class="auth-sub">Log in to your Style 18 Hide account</p>
+
+  <form id="loginForm" class="auth-form" onsubmit="doLogin(event)">
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" id="lEmail" placeholder="you@example.com" required/>
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="lPass" placeholder="Your password" required/>
+    </div>
+    <div id="loginError" class="form-error hidden"></div>
+    <button type="submit" class="btn-primary full-width">Log In</button>
+  </form>
+
+  <p class="auth-switch">Don't have an account? <a href="signup.html">Sign Up</a></p>
+</div>
+
+<script src="data.js"></script>
+<script>
+function doLogin(e) {
+  e.preventDefault();
+  const email = document.getElementById("lEmail").value.trim().toLowerCase();
+  const pass  = document.getElementById("lPass").value;
+  const err   = document.getElementById("loginError");
+
+  const users = loadUsers();
+  const user  = users.find(u => u.email === email && u.password === pass);
+
+  if (!user) { showErr("Invalid email or password."); return; }
+  if (user.banned) { showErr("🚫 Your account has been banned. Contact the admin."); return; }
+
+  setSession({ id: user.id, name: user.name, email: user.email });
+  window.location.href = "index.html";
+
+  function showErr(msg) {
+    err.textContent = msg;
+    err.classList.remove("hidden");
+  }
+}
+</script>
+</body>
+</html>
